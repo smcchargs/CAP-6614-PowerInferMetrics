@@ -7,8 +7,8 @@ models_dir = r"C:\Users\smcch\OneDrive\Desktop\Models"
 
 models = [
     r"ReluLLaMA-7B\llama-7b-relu.powerinfer.gguf", 
-    r"ReluLLaMA-13B\llama-13b-relu.powerinfer.gguf", 
-    r"ReluLLaMA-70B\llama-70b-relu.q4.powerinfer.gguf"
+    r"ReluLLaMA-13B\llama-13b-relu.q4.powerinfer.gguf",
+    r"ReluFalcon-40B\falcon-40b-relu.q4.powerinfer.gguf"
 ]
 
 # Create or clear the log files
@@ -18,7 +18,7 @@ with open("benchmark.log", "w", encoding="utf-8") as f, open("results_summary.lo
 
 for model in models:
     full_model_path = os.path.join(models_dir, model)
-    prompt_text = "Question: Write a basic python script. Answer: "
+    prompt_text = "Wrtie a poem"
     
     command = [
         exe_path,
@@ -68,4 +68,4 @@ for model in models:
 
     print(f"Done tracking {model}.")
 
-print("\nAll models processed. Review 'results_summary.log' for your presentation data!")
+print("\nAll models processed. Review 'results_summary.log'")
