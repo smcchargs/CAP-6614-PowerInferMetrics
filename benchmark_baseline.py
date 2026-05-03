@@ -2,8 +2,8 @@ import subprocess
 import os
 import re
 
-exe_path = r"C:\Users\smcch\OneDrive\Desktop\PowerInfer\build\bin\Release\main.exe"
-models_dir = r"C:\Users\smcch\OneDrive\Desktop\Models"
+exe_path = r".\main.exe"
+models_dir = r".\Models"
 
 models = [
     r"ReluLLaMA-7B\llama-7b-relu.powerinfer.gguf", 
@@ -35,11 +35,8 @@ for model in models:
     output_combined = result.stdout + result.stderr
 
     # --- DATA EXTRACTION ---
-    # Extract the AI's answer (text between the prompt and the timing stats)
-    # This logic assumes the answer starts after the prompt text
     answer = result.stdout.split(prompt_text)[-1].strip() if prompt_text in result.stdout else "Not found"
 
-    # Regex for performance and sparsity metrics
     metrics = {
         "model": model,
         "gen_speed": re.search(r"eval time =.*?([\d.]+ tokens per second)", output_combined),
@@ -49,7 +46,7 @@ for model in models:
         "sparse_threshold": re.search(r"sparse_pred_threshold = ([\d.]+)", output_combined)
     }
 
-    # --- LOGGING TO SUMMARY ---
+    # --- LOGGING ---
     with open("results_summary.log", "a", encoding="utf-8") as s:
         s.write(f"\n[MODEL]: {model}\n")
         s.write(f"  > Output: {answer}\n\n")
@@ -62,7 +59,7 @@ for model in models:
         s.write(f"    - Activation Threshold: {metrics['sparse_threshold'].group(1) if metrics['sparse_threshold'] else 'N/A'}\n")
         s.write("-" * 50 + "\n")
 
-    # Save raw data for backup
+    # Save raw data
     with open("benchmark.log", "a", encoding="utf-8") as raw:
         raw.write(f"\n--- START {model} ---\n{output_combined}\n--- END ---\n")
 

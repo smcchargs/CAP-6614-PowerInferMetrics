@@ -2,8 +2,8 @@ import subprocess
 import os
 import re
 
-exe_path = r"C:\Users\smcch\OneDrive\Desktop\PowerInfer\build\bin\Release\main.exe"
-models_dir = r"C:\Users\smcch\OneDrive\Desktop\Models"
+exe_path = r".\main.exe"
+models_dir = r".\Models"
 
 models = [
     r"ReluLLaMA-7B\llama-7b-relu.powerinfer.gguf", 

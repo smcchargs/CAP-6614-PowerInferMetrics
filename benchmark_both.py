@@ -4,8 +4,8 @@ import re
 import csv
 
 # --- CONFIGURATION ---
-EXE_PATH = r"C:\Users\smcch\OneDrive\Desktop\PowerInfer\build\bin\Release\main.exe"
-MODELS_DIR = r"C:\Users\smcch\OneDrive\Desktop\Models"
+EXE_PATH = r".\main.exe"
+MODELS_DIR = r".\Models"
 OUTPUT_CSV = "powerinfer_experiment_results.csv"
 BENCHMARK_LOG = "benchmark.log"
 SUMMARY_LOG = "results_summary.log"

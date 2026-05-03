@@ -5,8 +5,8 @@ import csv
 import time
 
 # --- CONFIGURATION ---
-EXE_PATH = r"C:\Users\smcch\OneDrive\Desktop\PowerInfer\build\bin\Release\main.exe"
-MODELS_DIR = r"C:\Users\smcch\OneDrive\Desktop\Models"
+EXE_PATH = r".\main.exe"
+MODELS_DIR = r".\Models"
 PROMPTS_CSV = "prompts_disparity.csv"
 OUTPUT_CSV = "disparity_analysis_7B.csv"
 BENCHMARK_LOG = "benchmark_disparity.log"
@@ -15,7 +15,6 @@ BENCHMARK_LOG = "benchmark_disparity.log"
 MODEL_PATH = r"ReluLLaMA-7B\llama-7b-relu.powerinfer.gguf"
 MODEL_NAME_HEADER = "ReluLLaMA_7B_Speed_TPS"
 
-# SAFETY SETTINGS
 VRAM_BUDGET = "7.5"  # Reduced slightly to prevent OS-level OOM crashes
 TIMEOUT_SEC = 120    # Stop waiting after 2 minutes if the model hangs
 
@@ -52,7 +51,7 @@ with open(PROMPTS_CSV, mode='r', encoding='utf-8') as f:
             EXE_PATH, "-m", full_model_path, "-p", prompt_text,
             "-n", "64", "-c", "512", 
             "--vram-budget", VRAM_BUDGET, 
-            "--temp", "0.0", "--simple-io" # simple-io helps subprocess stability
+            "--temp", "0.0", "--simple-io"
         ]
 
         try:
@@ -94,7 +93,7 @@ with open(PROMPTS_CSV, mode='r', encoding='utf-8') as f:
             print(f"    Critical Error: {e}")
             results_list.append({"Category": category, "Prompt_Snippet": "ERROR", MODEL_NAME_HEADER: 0.0})
 
-        # COOLDOWN: Short sleep to let Windows/GPU settle
+        # COOLDOWN
         time.sleep(2)
 
 # --- CSV OUTPUT ---

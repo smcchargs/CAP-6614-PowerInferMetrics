@@ -16,7 +16,7 @@ def analyze_sparsity_gradient(activation_dir, output_csv, num_layers=32, thresho
         
         # 1. Prepare and print the header row
         console_header = f"{'Layer':<7} |"
-        csv_header = ['Layer'] # First column for the CSV
+        csv_header = ['Layer']
         
         for t in thresholds:
             console_header += f" >{t:<4} |"
@@ -48,15 +48,15 @@ def analyze_sparsity_gradient(activation_dir, output_csv, num_layers=32, thresho
                 
             # Calculate hot neurons for each threshold
             console_row = f"Layer {layer_id:<2} |"
-            csv_row = [layer_id] # Start the CSV row with the layer ID
+            csv_row = [layer_id]
             
             for t in thresholds:
                 hot_count = (frequencies > t).sum().item()
                 console_row += f" {hot_count:<5} |"
-                csv_row.append(hot_count) # Add the count to the CSV row
+                csv_row.append(hot_count)
                 
             print(console_row)
-            writer.writerow(csv_row) # Write the finished row to the CSV file
+            writer.writerow(csv_row)
 
     print(f"\nAnalysis complete! Data successfully exported to:\n{os.path.abspath(output_csv)}")
 
@@ -65,10 +65,10 @@ def analyze_sparsity_gradient(activation_dir, output_csv, num_layers=32, thresho
 # ==========================================
 
 # Point to your existing generic profile directory
-activation_folder = r'C:\Users\smcch\OneDrive\Desktop\Models\ReluLLaMA-7B\activation'
+activation_folder = r'.\Models\ReluLLaMA-7B\activation'
 
 # Define exactly where you want the CSV file to be saved
-output_filename = r'C:\Users\smcch\OneDrive\Desktop\Models\ReluLLaMA-7B\sparsity_metrics.csv'
+output_filename = r'.\Models\ReluLLaMA-7B\sparsity_metrics.csv'
 
 # Define the gradient to test
 gradient_thresholds = [0.8, 0.5, 0.2, 0.1, 0.05, 0.01]

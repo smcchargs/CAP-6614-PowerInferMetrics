@@ -4,8 +4,8 @@ import re
 import csv
 
 # --- CONFIGURATION ---
-EXE_PATH = r"C:\Users\smcch\OneDrive\Desktop\PowerInfer\build\bin\Release\main.exe"
-MODELS_DIR = r"C:\Users\smcch\OneDrive\Desktop\Models"
+EXE_PATH = r".\main.exe"
+MODELS_DIR = r".\Models"
 PROMPTS_CSV = "prompts.csv"
 OUTPUT_CSV = "speed_comparison_results.csv"
 BENCHMARK_LOG = "benchmark.log"
@@ -18,12 +18,10 @@ def parse_gen_speed(output):
     Extracts ONLY the generation speed (eval time) tokens per second.
     Uses negative lookahead to ignore the 'prompt eval' line.
     """
-    # Matches the line with 'eval time' but WITHOUT the word 'prompt'
     match = re.search(r"^(?!.*prompt).*eval time\s*=\s*.*?([\d.]+)\s*tokens per second", 
                       output, re.MULTILINE | re.IGNORECASE)
     return float(match.group(1)) if match else None
 
-# --- MAIN ENGINE ---
 if not os.path.exists(PROMPTS_CSV):
     print(f"Error: {PROMPTS_CSV} not found!")
     exit()
@@ -39,7 +37,6 @@ with open(PROMPTS_CSV, mode='r', encoding='utf-8') as f:
         if not row: continue
         prompt_text = row[1]
         
-        # We store both speeds for the same prompt in one dictionary (one row in CSV)
         prompt_results = {"Prompt_Snippet": prompt_text[:30]} 
 
         for budget in [0, 8]:
